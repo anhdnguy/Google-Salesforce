@@ -46,7 +46,7 @@ public class CreateEmailsTest {
         lstOpp = [select id, Name, WU_Email__c from Opportunity order by CreatedDate desc];
         
 		for (Integer i=0; i < lstOpp.size(); i++) {
-            System.debug('Record ' + i + ' is ' + lstOpp[i].Name + ' WU Email is ' + lstOpp[i].WU_Email__c);
+            System.debug('Record ' + i + ' is ' + lstOpp[i].Name + ' customer email is ' + lstOpp[i].WU_Email__c);
         }
         System.assertEquals(lstOpp.size(), 1);
         System.debug(lstOpp[0].WU_Email__c);

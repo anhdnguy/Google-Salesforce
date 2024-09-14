@@ -9,6 +9,7 @@ global class CreateEmails {
 
     private GoogleForce gForce;
     
+    // This function extract the first letter of the first name
     public static String getFirstLetter (String firstName) {
         String firstLetter = '';
         String firstNameCopy = firstName;
@@ -45,12 +46,14 @@ global class CreateEmails {
 		Boolean dup_email = true;
 		String exist_email;
 		Integer random_index = Math.round((Math.random() * (499) + 101));
-		String temp_email = getFirstLetter(con.FirstName) + '.' + con.LastName.replaceAll( '\\s+', '') + 
-            '.' + random_index  + '@domain';
+        // Email format is F.Lastname.Integer@domain
+        String prefix = getFirstLetter(con.FirstName) + '.' + con.LastName.replaceAll( '\\s+', '')
+		String temp_email = prefix + '.' + random_index  + '@domain';
         
+        // Loop until no more duplication found
         while (dup_email) {
             String endpoint = 'https://admin.googleapis.com/admin/directory/v1/users/' + temp_email;
-            GoogleForce gForce = new GoogleForce('<Name_of_SA>');
+            GoogleForce gForce = new GoogleForce('AdminTest');
             HttpResponse resp = gForce.sendRequest(new Map<String, String> {
                 'method' 	=> 'GET',
                 'endpoint' 	=> endpoint
@@ -59,7 +62,7 @@ global class CreateEmails {
                 JSON.deserializeUntyped(resp.getBody());
             if ((String) respParams.get('id') != null) {
                 random_index = Math.round((Math.random() * (499) + 101));
-                temp_email = getFirstLetter(con.FirstName) + '.' + con.LastName + '.' + random_index + '@domain';
+                temp_email = prefix + '.' + random_index + '@domain';
             }
             else {
                 dup_email = false;
@@ -67,7 +70,7 @@ global class CreateEmails {
         }
                 
 		String endpoint = 'https://admin.googleapis.com/admin/directory/v1/users/';
-		GoogleForce gForce = new GoogleForce('<Name_of_SA>');
+		GoogleForce gForce = new GoogleForce('AdminTest');
 		String json_body = '{' + '"name" : {' + '"familyName" : "' + con.LastName + '",' +
                     '"givenName" : "' + con.Firstname + '"},' +
                     '"password" : "SomeText' + random_index + '",' +

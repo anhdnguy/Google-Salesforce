@@ -134,8 +134,9 @@ public class GoogleForce {
         // to minutes. Therefore, we divide by 60,000
         Long elapsedMin = (Datetime.now().getTime()
             - serviceAcctToken.Timestamp__c.getTime())/60000;
-
-        if (elapsedMin >= 58) {
+        
+        // Token needs to be refreshed if created 55min ago
+        if (elapsedMin >= 55) {
             return true;
         }
         return false;

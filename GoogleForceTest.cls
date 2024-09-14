@@ -14,7 +14,7 @@ public class GoogleForceTest {
         insert lstCon;
         
         for (Integer i = 0; i < OPP_NUM; i++) {
-            Opportunity newOpp = new Opportunity(Name='Test'+i, StageName='New', WU_Email__c='Test12@westcliff.edu',
+            Opportunity newOpp = new Opportunity(Name='Test'+i, StageName='New', WU_Email__c='Test12@gmail.com',
                                                  CloseDate=Date.valueOf('2018-01-01'), Contact__c=lstCon[i].id);
             lstOpp.add(newOpp);
         }        

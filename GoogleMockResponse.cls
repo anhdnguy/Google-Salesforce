@@ -1,4 +1,5 @@
 @isTest
+// This class is used to create mock response from Google API for test purposes
 public class GoogleMockResponse implements HttpCalloutMock {
 
     private Integer code;
