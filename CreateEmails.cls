@@ -50,7 +50,7 @@ global class CreateEmails {
         String prefix = getFirstLetter(con.FirstName) + '.' + con.LastName.replaceAll( '\\s+', '')
 		String temp_email = prefix + '.' + random_index  + '@domain';
         
-        // Loop until no more duplication found
+        // Loop until no more duplicate email found
         while (dup_email) {
             String endpoint = 'https://admin.googleapis.com/admin/directory/v1/users/' + temp_email;
             GoogleForce gForce = new GoogleForce('AdminTest');
